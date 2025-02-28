@@ -356,7 +356,7 @@
     "path-to-regexp": "^0.1.12"
   },
   "scripts": {
-    "build": "yarn build:cljs && yarn build:js",
+    "build": "yarn build:cljs && yarn build:js && yarn deduplicate",
     "build-embedding-sdk": "yarn && yarn build-release:cljs && yarn embedding-sdk:generate-package && yarn embedding-sdk:generate-nextjs-compat && yarn build-release:sdk && yarn build-embedding-sdk-cli && yarn embedding-sdk:fixup-types-imports",
     "build-embedding-sdk:pure": "WEBPACK_BUNDLE=development webpack --config webpack.embedding-sdk.config.js",
     "build-embedding-sdk:watch": "yarn embedding-sdk:generate-package && yarn embedding-sdk:generate-nextjs-compat && yarn build-embedding-sdk:pure --watch",
@@ -399,6 +399,7 @@
     "cljs-server-start": "yarn && shadow-cljs start",
     "cljs-server-stop": "yarn && shadow-cljs stop",
     "concurrently": "yarn && concurrently --kill-others -p name",
+    "deduplicate": "yarn yarn-deduplicate --scopes @babel && patch-package",
     "dev": "yarn && yarn clean-dev:cljs && concurrently -n 'backend,frontend,cljs,static-viz' -c 'blue,green,yellow,magenta,red' 'clojure -M:run' 'yarn build-hot:js-wait' 'yarn build:cljs' 'yarn build-static-viz:watch-wait'",
     "dev-hot-be": "yarn && yarn clean-dev:cljs && concurrently -n 'backend,frontend,cljs,static-viz' -c 'blue,green,yellow,magenta,red' 'clojure -M:run' 'ENABLE_CLJS_HOT_RELOAD=true yarn build-hot:js-wait' 'yarn build-hot:cljs' 'yarn build-static-viz:watch-wait'",
     "dev-ee": "yarn && yarn clean-dev:cljs && concurrently -n 'backend,frontend,cljs,static-viz' -c 'blue,green,yellow,magenta,red' 'clojure -M:run:ee' 'MB_EDITION=ee yarn build-hot:js-wait' 'MB_EDITION=ee yarn build:cljs' 'yarn build-static-viz:watch-wait'",
